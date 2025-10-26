@@ -1,0 +1,15 @@
+redis
+rq
+fastapi
+uvicorn
+pydantic
+httpx
+langchain-community
+beautifulsoup4
+langchain-google-genai
+sqlalchemy
+psycopg-binary
+psycopg
+langchain-text-splitters
+faiss-cpu
+python-dotenv
