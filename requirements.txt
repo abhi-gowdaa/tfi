@@ -1,5 +1,3 @@
-redis
-rq
 fastapi
 uvicorn
 pydantic
@@ -13,3 +11,5 @@ psycopg
 langchain-text-splitters
 faiss-cpu
 python-dotenv
+aiohttp
+tiktoken
