@@ -14,7 +14,7 @@ load_dotenv()
 # Initialize components globally
 INDEX_PATH = "faiss_index"
 
-
+ 
 def load_faiss_index():
     """Load existing FAISS index"""
     api_key = os.getenv("GOOGLE_API_KEY")
@@ -34,7 +34,10 @@ def load_faiss_index():
         )
         return vector_store, embeddings
     except Exception as e:
-        raise ValueError(f"  Failed to load FAISS index from {INDEX_PATH}: {str(e)}")
+        print(f"Creating new FAISS Web index at: {INDEX_PATH}")
+        vector_store = FAISS.from_texts(["init"], embedding=embeddings)
+        return vector_store, embeddings
+
 
 
 class AsyncQueryEngine:
@@ -73,7 +76,7 @@ Instructions:
 7. If only partial information is available, give a short, relevant answer with reasoning.
 8. Cite specific features, products, or solutions when mentioning them.
 
-Answer (include reasoning and relevant context references):"""
+Answer:"""
     
     async def query_single(self, question: str, k: int = 5) -> Dict:
         """
@@ -109,7 +112,7 @@ Answer (include reasoning and relevant context references):"""
         for doc, score in results:
             url = doc.metadata.get('url', 'N/A')
             
-            # Skip if we already have this URL (avoid duplicates from same page)
+            # Skip if we already have this URL  
             if url in seen_urls:
                 continue
             
@@ -275,7 +278,7 @@ def print_batch_summary(results: List[Dict]):
 
 async def main(args):
     """Main entry point"""
-    # Load FAISS index (silently)
+     
     vector_store, embeddings = load_faiss_index()
     
     # Initialize query engine
@@ -303,22 +306,22 @@ async def main(args):
         print("  Concurrent processing: python query.py --questions questions.txt --concurrent")
         return
     
-    # Process queries
+    # Process queries for single and batch 
     if len(questions) == 1:
-        # Single question - clean output
+ 
         result = await engine.query_single(questions[0])
         print_result(result)
     else:
-        # Multiple questions
+    
         results = await engine.query_batch(questions, concurrent=args.concurrent)
         
-        # Print individual results with separators
+    
         for i, result in enumerate(results, 1):
             if i > 1:
                 print("\n" + "="*70 + "\n")
             print_result(result)
         
-        # Print summary
+        
         print_batch_summary(results)
 
 

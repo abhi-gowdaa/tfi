@@ -49,7 +49,7 @@ class QueryRequest(BaseModel):
 class BatchQueryRequest(BaseModel):
     questions: List[str]
     k: Optional[int] = 5
-    callback_url: Optional[str] = None
+   
 
 
 async def send_webhook(callback_url: str, data: dict):
@@ -76,9 +76,9 @@ async def run_ingestion(urls: List[str], callback_url: str):
             scraper_metrics_all.append(scraper.get_metrics())
         
         # Embed and index
-        # embedder = AsyncEmbedder()
-        # await embedder.process_documents(all_documents)
-        # embedder_metrics = embedder.get_metrics()
+        embedder = AsyncEmbedder()
+        await embedder.process_documents(all_documents)
+        embedder_metrics = embedder.get_metrics()
         
         total_time = time.time() - start_time
         
@@ -91,10 +91,10 @@ async def run_ingestion(urls: List[str], callback_url: str):
             "total_time": f"{total_time:.1f}s",
             "pages_scraped": total_scraped,
             "pages_failed": total_failed,
-            # "total_chunks_created": embedder_metrics['chunks_created'],
-            # "total_tokens_processed": embedder_metrics['tokens_processed'],
-            # "embedding_generation_time": embedder_metrics['embedding_time'],
-            # "indexing_time": embedder_metrics['indexing_time'],
+            "total_chunks_created": embedder_metrics['chunks_created'],
+            "total_tokens_processed": embedder_metrics['tokens_processed'],
+            "embedding_generation_time": embedder_metrics['embedding_time'],
+            "indexing_time": embedder_metrics['indexing_time'],
             "documents_processed": len(all_documents)
         }
         
@@ -137,8 +137,6 @@ async def query(request: QueryRequest):
 
 @app.post("/api/query/batch")
 async def query_batch(request: BatchQueryRequest, background_tasks: BackgroundTasks):
-    
-    
         # Synchronous response
     engine = AsyncQueryEngine(vector_store,embeddings)
     results = await engine.query_batch(request.questions, concurrent=True)
@@ -156,7 +154,7 @@ async def query_batch(request: BatchQueryRequest, background_tasks: BackgroundTa
         "aggregate_metrics": aggregate_metrics
     }
 
-@app.get("/health")
+@app.get("/ping")
 async def health_check():
     return {"status": "healthy", "service": "TransFi RAG API"}
 

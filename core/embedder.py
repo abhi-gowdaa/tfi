@@ -122,7 +122,7 @@ class AsyncEmbedder:
         """
         start_time = time.time()
         
-        print(f"📝 Chunking {len(documents)} documents...")
+        print(f" Chunking {len(documents)} documents...")
         
         # Run chunking in executor (CPU-bound operation)
         loop = asyncio.get_event_loop()
@@ -161,7 +161,7 @@ class AsyncEmbedder:
         """
         start_time = time.time()
         
-        print(f"💾 Creating FAISS index with {len(documents)} documents...")
+        print(f" Creating FAISS index with {len(documents)} documents...")
         
         # Create initial FAISS index with first batch
         first_batch_size = min(self.batch_size, len(documents))
