@@ -17,7 +17,7 @@ A production-ready Retrieval-Augmented Generation (RAG) system for TransFi's pro
 
 ### Step 1: Clone Repository
 ```bash
-git clone https://github.com/abhi-gowdaa/tfi-frontend
+git clone https://github.com/abhi-gowdaa/tfi
 cd tfi
 ```
 
