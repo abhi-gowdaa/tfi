@@ -1,0 +1,20 @@
+{
+  "total_time": 109.07525539398193,
+  "scraper": {
+    "total_time": "7.7s",
+    "pages_scraped": 19,
+    "pages_failed": 0,
+    "average_scraping_time": "2.42s",
+    "failed_urls": []
+  },
+  "embedder": {
+    "documents_processed": 19,
+    "chunks_created": 183,
+    "tokens_processed": 26408,
+    "chunking_time": "0.03s",
+    "embedding_time": "100.24s",
+    "indexing_time": "100.24s",
+    "avg_tokens_per_chunk": 144
+  },
+  "documents_processed": 19
+}

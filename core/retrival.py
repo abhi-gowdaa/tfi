@@ -51,23 +51,23 @@ class AsyncRetriever:
         return results, retrieval_time
     
     def create_prompt(self, context: str, question: str) -> str:
-        """Create a prompt for the LLM"""
-        return f"""You are an expert assistant for TransFi, a global payment platform.
+            """Create a prompt for the LLM"""
+            return f"""You are an expert assistant for TransFi, a global payment platform.
 
-Context from TransFi documentation:
-{context}
+    Context from TransFi documentation:
+    {context}
 
-Question: {question}
+    Question: {question}
 
-Instructions:
-1. Answer based ONLY on the provided context above
-2. Be concise and clear (50-150 words)
-3. If the answer is not in the context, say "This information is not available in the provided context"
-4. Cite specific features, products, or solutions when mentioning them
-5. If greeting, respond warmly and offer to help with TransFi questions
+    Instructions:
+    1. Answer based ONLY on the provided context above
+    2. Be concise and clear (50-150 words)
+    3. If the answer is not in the context, say "This information is not available in the provided context"
+    4. Cite specific features, products, or solutions when mentioning them
+    5. If greeting, respond warmly and offer to help with TransFi questions
 
-Answer:"""
-    
+    Answer:"""
+        
     async def generate_answer(self, prompt: str) -> Tuple[str, float, int, int]:
         """
         Generate answer using LLM

@@ -5,6 +5,9 @@
 
 A production-ready Retrieval-Augmented Generation (RAG) system for TransFi's products and solutions documentation.
 
+
+### Test it: Go to https://tfi-frontend.onrender.com/ and test it , this is the deployed version
+
 #
 ## Installation
 
@@ -14,8 +17,8 @@ A production-ready Retrieval-Augmented Generation (RAG) system for TransFi's pro
 
 ### Step 1: Clone Repository
 ```bash
-git clone <>
-cd transfi-rag
+git clone https://github.com/abhi-gowdaa/tfi-frontend
+cd tfi
 ```
 
 ### Step 2: Create Virtual Environment
@@ -141,7 +144,7 @@ python query.py --questions questions.txt --concurrent
 
 #### Terminal 1: Start Webhook Receiver
 ```bash
-python webhook.py --port 8001
+python webhook_receiver.py --port 8001
 ```
 
 #### Terminal 2: Start FastAPI Server
@@ -245,3 +248,24 @@ curl http://localhost:8000/ping
 {"status": "healthy", "service": "TransFi RAG API"}
 ```
 
+
+
+### Test it: Go to http://127.0.0.1:8000/docs and try the APIs
+
+### Or Postman use the React frontend [optional] :
+
+clone the frontend folder
+```bash
+git clone https://github.com/abhi-gowdaa/tfi-frontend
+```
+
+```bash
+cd into the folder
+```
+
+```bash
+npm install
+npm start
+```
+
+### Test it: Go to https://tfi-frontend.onrender.com/ and test it , this is the deployed version
